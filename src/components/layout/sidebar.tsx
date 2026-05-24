@@ -15,7 +15,7 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="flex w-full shrink-0 flex-col border-b border-border bg-sidebar lg:w-60 lg:border-r lg:border-b-0">
+    <aside className="flex w-full shrink-0 flex-col border-b border-border bg-sidebar lg:h-screen lg:w-60 lg:border-r lg:border-b-0">
       <div className="flex items-center gap-2.5 border-b border-sidebar-border px-4 py-4">
         <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
           <Shield className="size-4" />
@@ -47,7 +47,7 @@ export function Sidebar() {
           );
         })}
       </nav>
-      <footer className="hidden border-t border-sidebar-border p-4 lg:block">
+      <footer className="mt-auto hidden border-t border-sidebar-border p-4 lg:block">
         <p className="text-xs text-muted-foreground">Q2 2026 Audit Cycle</p>
         <p className="mt-0.5 text-xs font-medium text-sidebar-foreground">
           Sarah Chen · Compliance Manager

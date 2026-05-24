@@ -5,7 +5,7 @@ import { ArrowLeft, CheckCircle2, FileText, Image, Table2 } from "lucide-react";
 
 import { UploadEvidenceDialog } from "@/components/requirements/upload-evidence-dialog";
 import { StatusBadge } from "@/components/requirements/status-badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -17,6 +17,7 @@ import { Separator } from "@/components/ui/separator";
 import { formatDate, formatDateTime } from "@/lib/requirements-utils";
 import { useRequirements } from "@/lib/store";
 import type { EvidenceType } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 const evidenceIcons: Record<EvidenceType, typeof FileText> = {
   pdf: FileText,
@@ -33,10 +34,13 @@ export function RequirementDetail({ id }: { id: string }) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 p-12">
         <p className="text-muted-foreground">Requirement not found.</p>
-        <Button variant="outline" render={<Link href="/requirements" />}>
+        <Link
+          href="/requirements"
+          className={cn(buttonVariants({ variant: "outline" }))}
+        >
           <ArrowLeft className="size-4" />
           Back to Requirements
-        </Button>
+        </Link>
       </div>
     );
   }
@@ -51,15 +55,16 @@ export function RequirementDetail({ id }: { id: string }) {
     <div className="space-y-6 p-6">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="-ml-2 mb-2"
-            render={<Link href="/requirements" />}
+          <Link
+            href="/requirements"
+            className={cn(
+              buttonVariants({ variant: "ghost", size: "sm" }),
+              "-ml-2 mb-2"
+            )}
           >
             <ArrowLeft className="size-4" />
             Requirements
-          </Button>
+          </Link>
           <div className="flex flex-wrap items-center gap-3">
             <h2 className="text-xl font-semibold">
               {requirement.id} · {requirement.title}

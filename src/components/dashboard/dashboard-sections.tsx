@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { StatusBadge } from "@/components/requirements/status-badge";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import type { DashboardStats } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 export function AuditReadiness({
   stats,
@@ -105,10 +106,13 @@ export function AtRiskItems({
             Requirements missing evidence or not yet started
           </CardDescription>
         </div>
-        <Button variant="ghost" size="sm" render={<Link href="/requirements" />}>
+        <Link
+          href="/requirements"
+          className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
+        >
           View all
           <ArrowRight className="size-3.5" />
-        </Button>
+        </Link>
       </CardHeader>
       <CardContent className="space-y-2">
         {items.slice(0, 5).map((item) => (
