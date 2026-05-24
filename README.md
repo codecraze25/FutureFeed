@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FutureFeed — Compliance Evidence Dashboard
 
-## Getting Started
+A clickable prototype for compliance managers at defense contractors. FutureFeed replaces spreadsheet-and-email chaos with a clear workflow for tracking requirements, attaching evidence, and monitoring audit readiness.
 
-First, run the development server:
+## Live Demo
+
+Deploy to Vercel for a public URL:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npx vercel --prod
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Or run locally:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+## Core Workflow
 
-To learn more about Next.js, take a look at the following resources:
+```text
+Requirement → Missing Evidence → Upload / Attach Evidence → Review → Mark Complete
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The dashboard always surfaces:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- What is **complete**
+- What is **missing evidence**
+- What **blocks audit readiness**
 
-## Deploy on Vercel
+## Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Area | What it does |
+|------|----------------|
+| **Dashboard** | Total controls, completed count, needs-attention count, audit readiness %, at-risk items, recently updated |
+| **Requirements list** | Searchable table with status filter; sorted by attention priority |
+| **Requirement detail** | Description, evidence list, activity timeline, upload simulation, mark complete |
+| **Evidence upload** | Simulated file attach — updates status to In Review automatically |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Product Decisions
+
+1. **Dashboard-first** — Audit readiness % is the primary metric. Compliance managers need a single glance answer before drilling into controls.
+
+2. **Four-status model** — Complete, Missing Evidence, In Review, and Not Started map directly to the audit prep lifecycle without over-engineering state machines.
+
+3. **Attention-based sorting** — Missing evidence and not-started items float to the top, mirroring how managers triage from spreadsheets today.
+
+4. **Simulated upload → In Review** — Uploading evidence auto-advances status, reflecting real review workflows without backend complexity.
+
+5. **At-risk callouts** — Blocking requirements are highlighted on both the dashboard and detail views so gaps are never buried in a long list.
+
+6. **Enterprise aesthetic** — Neutral palette, operational layout, no marketing chrome. Built to feel like an internal GRC tool.
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19 + TypeScript
+- Tailwind CSS 4
+- shadcn/ui
+- In-memory React context (no backend)
+
+## Project Structure
+
+```text
+src/
+├── app/                    # Routes: /, /requirements, /requirements/[id]
+├── components/
+│   ├── dashboard/          # Stat cards, audit readiness, recent activity
+│   ├── layout/             # Sidebar shell, page headers
+│   └── requirements/       # List, detail, upload dialog, status badges
+└── lib/
+    ├── mock-data.ts        # 12 NIST-style sample controls
+    ├── store.tsx           # Client state for uploads & completions
+    └── requirements-utils.ts
+```
+
+## Security
+
+```bash
+npm audit
+```
+
+As of the last check, `npm audit` reports 2 moderate vulnerabilities in PostCSS bundled with Next.js. Fixing them requires a breaking downgrade (`npm audit fix --force` → Next.js 9.x), which is not reasonable for this prototype. Dependencies are otherwise minimal.
+
+## Out of Scope
+
+- Authentication
+- Real file storage
+- Production backend
+- External integrations
+- Full compliance rule engine
+
+## License
+
+Private prototype — not for production use.
