@@ -52,7 +52,7 @@ export function AuditReadiness({
             </div>
           )}
         </div>
-        <Progress value={stats.auditReadiness} className="h-2" />
+        <Progress value={stats.auditReadiness} className="h-2 w-full" />
         <div className="grid grid-cols-3 gap-3 pt-1 text-center text-sm">
           <div className="rounded-lg bg-muted/50 px-2 py-2">
             <p className="font-medium text-red-600 dark:text-red-400">
@@ -119,14 +119,14 @@ export function AtRiskItems({
           <Link
             key={item.id}
             href={`/requirements/${item.id}`}
-            className="flex items-center justify-between rounded-lg border border-border px-3 py-2.5 transition-colors hover:bg-muted/50"
+            className="flex items-center justify-between gap-3 rounded-lg border border-border px-3 py-2.5 transition-colors hover:bg-muted/50"
           >
-            <div>
-              <p className="text-sm font-medium">
+            <div className="min-w-0">
+              <p className="truncate text-sm font-medium">
                 {item.id} · {item.title}
               </p>
             </div>
-            <StatusBadge status={item.status} />
+            <StatusBadge status={item.status} className="shrink-0" />
           </Link>
         ))}
       </CardContent>
@@ -155,10 +155,10 @@ export function RecentUpdates({
           <Link
             key={item.id}
             href={`/requirements/${item.id}`}
-            className="flex items-center justify-between rounded-lg border border-border px-3 py-2.5 transition-colors hover:bg-muted/50"
+            className="flex items-center justify-between gap-3 rounded-lg border border-border px-3 py-2.5 transition-colors hover:bg-muted/50"
           >
-            <div>
-              <p className="text-sm font-medium">
+            <div className="min-w-0">
+              <p className="truncate text-sm font-medium">
                 {item.id} · {item.title}
               </p>
               <p className="text-xs text-muted-foreground">
@@ -169,7 +169,7 @@ export function RecentUpdates({
                 }).format(new Date(item.lastUpdated))}
               </p>
             </div>
-            <StatusBadge status={item.status} />
+            <StatusBadge status={item.status} className="shrink-0" />
           </Link>
         ))}
       </CardContent>

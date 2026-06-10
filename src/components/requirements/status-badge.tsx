@@ -24,11 +24,17 @@ const statusConfig: Record<
   },
 };
 
-export function StatusBadge({ status }: { status: RequirementStatus }) {
+export function StatusBadge({
+  status,
+  className,
+}: {
+  status: RequirementStatus;
+  className?: string;
+}) {
   const config = statusConfig[status];
 
   return (
-    <Badge variant={config.variant} className={cn(config.className)}>
+    <Badge variant={config.variant} className={cn(config.className, className)}>
       {status}
     </Badge>
   );
